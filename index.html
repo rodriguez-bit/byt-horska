@@ -1,0 +1,1286 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3-izbovy byt na prenajom | Horska, Partizanske</title>
+    <meta name="description" content="Priestranny 3-izbovy byt, 82 m2, 1. poschodie. Kompletne zrekonstruovany, volny od 20. aprila 2026.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #FAF7F4;
+            --bg-warm: #F2ECE4;
+            --bg-dark: #1C1917;
+            --bg-card: #FFFFFF;
+            --text: #1C1917;
+            --text-soft: #78716C;
+            --text-light: #A8A29E;
+            --accent: #B45309;
+            --accent-warm: #D97706;
+            --accent-glow: rgba(217, 119, 6, 0.15);
+            --copper: #C2884D;
+            --cream: #F5F0E8;
+            --border: #E7E5E4;
+            --border-warm: #D6D3D1;
+            --serif: 'Cormorant Garamond', Georgia, serif;
+            --sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+            --radius: 14px;
+            --shadow-sm: 0 1px 3px rgba(28,25,23,0.04);
+            --shadow-md: 0 8px 30px rgba(28,25,23,0.08);
+            --shadow-lg: 0 20px 60px rgba(28,25,23,0.12);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--sans);
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.65;
+            font-weight: 400;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* === NOISE TEXTURE OVERLAY === */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.025;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            background-size: 200px 200px;
+        }
+
+        /* === NAV === */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            padding: 1.25rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        nav.scrolled {
+            padding: 0.7rem 3rem;
+            background: rgba(250, 247, 244, 0.92);
+            backdrop-filter: blur(20px) saturate(1.2);
+            border-bottom: 1px solid var(--border);
+            box-shadow: var(--shadow-sm);
+        }
+        .nav-brand {
+            font-family: var(--serif);
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--text);
+            text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+        .nav-links { display: flex; gap: 2.25rem; align-items: center; }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-soft);
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: color 0.25s;
+            letter-spacing: 0.01em;
+        }
+        .nav-links a:hover { color: var(--text); }
+        .nav-cta {
+            background: var(--bg-dark) !important;
+            color: white !important;
+            padding: 0.6rem 1.6rem;
+            border-radius: 100px;
+            font-weight: 600 !important;
+            transition: transform 0.25s, box-shadow 0.25s, background 0.25s !important;
+        }
+        .nav-cta:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(28,25,23,0.25);
+            background: #292524 !important;
+        }
+
+        /* === HERO === */
+        .hero {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1.15fr;
+            padding-top: 0;
+            position: relative;
+        }
+        .hero-left {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 8rem 4rem 4rem 5rem;
+            position: relative;
+        }
+        .hero-left::after {
+            content: '';
+            position: absolute;
+            top: 20%;
+            right: -60px;
+            width: 120px;
+            height: 120px;
+            background: var(--accent-glow);
+            border-radius: 50%;
+            filter: blur(60px);
+        }
+
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            margin-bottom: 1.75rem;
+            animation: fadeUp 0.7s ease both;
+        }
+        .hero-eyebrow .dot {
+            width: 8px; height: 8px;
+            background: #16a34a;
+            border-radius: 50%;
+            animation: breathe 2.5s ease-in-out infinite;
+        }
+        .hero-eyebrow span {
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #16a34a;
+        }
+
+        .hero h1 {
+            font-family: var(--serif);
+            font-size: clamp(3rem, 5.5vw, 4.5rem);
+            line-height: 1.05;
+            letter-spacing: -0.03em;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            animation: fadeUp 0.7s ease 0.1s both;
+        }
+        .hero h1 em {
+            font-style: italic;
+            color: var(--accent);
+            font-weight: 400;
+        }
+
+        .hero-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-soft);
+            font-weight: 300;
+            max-width: 440px;
+            margin-bottom: 2.5rem;
+            animation: fadeUp 0.7s ease 0.2s both;
+            line-height: 1.7;
+        }
+
+        .hero-pills {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            margin-bottom: 2.5rem;
+            animation: fadeUp 0.7s ease 0.3s both;
+        }
+        .pill {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 0.6rem 1.2rem;
+            border-radius: 100px;
+            font-size: 0.82rem;
+            font-weight: 500;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .pill .num {
+            font-family: var(--serif);
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .hero-price {
+            animation: fadeUp 0.7s ease 0.4s both;
+        }
+        .hero-price .amount {
+            font-family: var(--serif);
+            font-size: 3rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1;
+        }
+        .hero-price .per {
+            font-size: 0.9rem;
+            color: var(--text-soft);
+            font-weight: 300;
+            margin-left: 0.25rem;
+        }
+        .hero-price .note {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin-top: 0.3rem;
+        }
+
+        /* Hero right - video */
+        .hero-right {
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 1s ease 0.3s both;
+        }
+        .hero-video-wrap {
+            width: 100%;
+            height: 100%;
+            min-height: 100vh;
+            position: relative;
+        }
+        .hero-video-wrap iframe {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 120%;
+            height: 120%;
+            transform: translate(-50%, -50%);
+            border: none;
+        }
+        .hero-video-cover {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, var(--bg) 0%, transparent 15%),
+                        linear-gradient(0deg, rgba(28,25,23,0.2) 0%, transparent 30%);
+            pointer-events: none;
+        }
+        .video-badge {
+            position: absolute;
+            bottom: 2rem;
+            right: 2rem;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            padding: 0.6rem 1.2rem;
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: var(--shadow-md);
+            z-index: 2;
+        }
+        .video-badge svg { flex-shrink: 0; }
+
+        /* === TRUST BAR === */
+        .trust-bar {
+            background: var(--bg-dark);
+            color: white;
+            padding: 2rem 4rem;
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+            flex-wrap: wrap;
+        }
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 0.9rem;
+        }
+        .trust-icon {
+            width: 44px;
+            height: 44px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        .trust-item strong {
+            display: block;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        .trust-item span {
+            font-weight: 300;
+            font-size: 0.8rem;
+            opacity: 0.65;
+        }
+
+        /* === ABOUT / STORY === */
+        .story {
+            padding: 7rem 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .story-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+        .story-text h2 {
+            font-family: var(--serif);
+            font-size: clamp(2rem, 3.5vw, 2.8rem);
+            letter-spacing: -0.02em;
+            margin-bottom: 1.5rem;
+            line-height: 1.15;
+        }
+        .story-text h2 em {
+            font-style: italic;
+            color: var(--accent);
+            font-weight: 400;
+        }
+        .story-text p {
+            color: var(--text-soft);
+            font-weight: 300;
+            font-size: 1rem;
+            margin-bottom: 1.25rem;
+            line-height: 1.8;
+        }
+        .story-text p strong {
+            color: var(--text);
+            font-weight: 600;
+        }
+        .story-visual {
+            position: relative;
+        }
+        .story-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .story-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), var(--copper));
+        }
+        .story-card .big-number {
+            font-family: var(--serif);
+            font-size: 5rem;
+            font-weight: 700;
+            line-height: 1;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+        .story-card .big-label {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+        .story-card .big-desc {
+            color: var(--text-soft);
+            font-size: 0.9rem;
+            font-weight: 300;
+            line-height: 1.7;
+        }
+        .story-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        .story-stat-box {
+            background: var(--cream);
+            border-radius: 12px;
+            padding: 1.25rem;
+            text-align: center;
+        }
+        .story-stat-box strong {
+            display: block;
+            font-family: var(--serif);
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+        .story-stat-box span {
+            font-size: 0.75rem;
+            color: var(--text-soft);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        /* === FEATURES === */
+        .features {
+            padding: 6rem 4rem 7rem;
+            background: var(--bg-card);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+        .features-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .section-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 0.75rem;
+        }
+        .section-title {
+            font-family: var(--serif);
+            font-size: clamp(2rem, 3.5vw, 2.6rem);
+            letter-spacing: -0.02em;
+            margin-bottom: 0.75rem;
+            line-height: 1.15;
+        }
+        .section-desc {
+            color: var(--text-soft);
+            font-weight: 300;
+            font-size: 1rem;
+            max-width: 500px;
+            margin-bottom: 3rem;
+        }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.25rem;
+        }
+        .f-card {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease;
+            position: relative;
+        }
+        .f-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-md);
+        }
+        .f-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--accent-glow), rgba(194,136,77,0.12));
+            border: 1px solid rgba(180,83,9,0.1);
+            border-radius: 13px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.25rem;
+        }
+        .f-icon svg { width: 22px; height: 22px; stroke: var(--accent); fill: none; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+        .f-card h3 {
+            font-family: var(--serif);
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+        }
+        .f-card p {
+            color: var(--text-soft);
+            font-size: 0.88rem;
+            font-weight: 300;
+            line-height: 1.65;
+        }
+
+        /* === GALLERY === */
+        .gallery {
+            padding: 7rem 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-template-rows: 220px 220px;
+            gap: 1rem;
+        }
+        .g-item {
+            border-radius: var(--radius);
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .g-item:hover { transform: scale(1.015); }
+        .g-item:nth-child(1) { grid-column: 1 / 7; grid-row: 1 / 3; }
+        .g-item:nth-child(2) { grid-column: 7 / 10; }
+        .g-item:nth-child(3) { grid-column: 10 / 13; }
+        .g-item:nth-child(4) { grid-column: 7 / 10; }
+        .g-item:nth-child(5) { grid-column: 10 / 13; }
+
+        .g-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .g-placeholder .g-label {
+            font-size: 0.7rem;
+            letter-spacing: 0.14em;
+            font-weight: 600;
+            color: rgba(255,255,255,0.7);
+            text-transform: uppercase;
+            z-index: 1;
+        }
+        .g-placeholder .g-icon {
+            width: 48px;
+            height: 48px;
+            border: 2px solid rgba(255,255,255,0.25);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+        }
+        .g-placeholder .g-icon svg { width: 20px; height: 20px; stroke: rgba(255,255,255,0.5); fill: none; stroke-width: 1.5; }
+        .g1 { background: linear-gradient(135deg, #8B7355 0%, #6B5B45 50%, #A08968 100%); }
+        .g2 { background: linear-gradient(135deg, #9B8B75 0%, #7B6B55 100%); }
+        .g3 { background: linear-gradient(135deg, #A89878 0%, #887858 100%); }
+        .g4 { background: linear-gradient(135deg, #7B6B55 0%, #9B8B75 100%); }
+        .g5 { background: linear-gradient(135deg, #887858 0%, #A89878 100%); }
+
+        /* Gallery image support */
+        .g-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(28,25,23,0.92);
+            backdrop-filter: blur(20px);
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        .lightbox.active { display: flex; }
+        .lightbox img {
+            max-width: 90vw;
+            max-height: 90vh;
+            border-radius: 12px;
+            box-shadow: var(--shadow-lg);
+        }
+        .lightbox-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            width: 44px;
+            height: 44px;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.3rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+        .lightbox-close:hover { background: rgba(255,255,255,0.2); }
+
+        /* === VIDEO SECTION === */
+        .video-section {
+            padding: 0 4rem 7rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .video-container {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            aspect-ratio: 16/9;
+            background: var(--bg-dark);
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* === DETAILS === */
+        .details {
+            padding: 6rem 4rem;
+            background: var(--bg-warm);
+        }
+        .details-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+        .detail-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 2.5rem;
+        }
+        .detail-card h3 {
+            font-family: var(--serif);
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 1.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .detail-card h3 .h-icon {
+            width: 36px;
+            height: 36px;
+            background: var(--accent-glow);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .detail-card h3 .h-icon svg { width: 18px; height: 18px; stroke: var(--accent); fill: none; stroke-width: 1.75; }
+        .d-list { list-style: none; }
+        .d-list li {
+            padding: 0.85rem 0;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.92rem;
+        }
+        .d-list li:last-child { border: none; padding-bottom: 0; }
+        .d-label { color: var(--text-soft); font-weight: 400; }
+        .d-value { font-weight: 600; text-align: right; }
+        .d-value.green { color: #16a34a; }
+
+        /* === MAP / LOCATION === */
+        .location {
+            padding: 7rem 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .location-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+        .location-map {
+            border-radius: 20px;
+            overflow: hidden;
+            height: 400px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-sm);
+        }
+        .location-map iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .location-info h3 {
+            font-family: var(--serif);
+            font-size: 1.5rem;
+            margin-bottom: 1.25rem;
+        }
+        .location-info p {
+            color: var(--text-soft);
+            font-weight: 300;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+        .poi-list { list-style: none; }
+        .poi-list li {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.7rem 0;
+            font-size: 0.9rem;
+        }
+        .poi-dot {
+            width: 8px; height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        .poi-list li span { color: var(--text-soft); font-weight: 300; margin-left: auto; }
+
+        /* === CONTACT === */
+        .contact {
+            padding: 7rem 4rem;
+            background: var(--bg-dark);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        .contact::before {
+            content: '';
+            position: absolute;
+            top: -200px;
+            right: -200px;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(180,83,9,0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .contact-inner {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+        }
+        .contact .section-label { color: var(--copper); }
+        .contact .section-title { color: white; margin-bottom: 0.75rem; }
+        .contact .section-desc { color: rgba(255,255,255,0.55); margin: 0 auto 3rem; }
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
+            margin-bottom: 2.5rem;
+        }
+        .c-method {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 16px;
+            padding: 2rem;
+            text-decoration: none;
+            color: white;
+            transition: background 0.3s, transform 0.3s;
+            display: block;
+        }
+        .c-method:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-3px);
+        }
+        .c-method .c-icon {
+            width: 52px;
+            height: 52px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+        }
+        .c-method .c-icon svg { width: 24px; height: 24px; stroke: var(--copper); fill: none; stroke-width: 1.75; }
+        .c-method .c-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: rgba(255,255,255,0.45);
+            font-weight: 500;
+            margin-bottom: 0.35rem;
+        }
+        .c-method .c-value {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .contact-note {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.4);
+            font-weight: 300;
+            line-height: 1.7;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        /* === FOOTER === */
+        footer {
+            background: var(--bg-dark);
+            border-top: 1px solid rgba(255,255,255,0.06);
+            padding: 1.5rem 4rem;
+            text-align: center;
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.3);
+            font-weight: 300;
+        }
+
+        /* === ANIMATIONS === */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(28px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes breathe {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.85); }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(35px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal-d1 { transition-delay: 0.1s; }
+        .reveal-d2 { transition-delay: 0.2s; }
+        .reveal-d3 { transition-delay: 0.3s; }
+
+        /* === RESPONSIVE === */
+        @media (max-width: 1024px) {
+            .hero { grid-template-columns: 1fr; min-height: auto; }
+            .hero-left { padding: 7rem 2.5rem 3rem; }
+            .hero-right { height: 50vh; min-height: 350px; }
+            .hero-video-wrap { min-height: 350px; height: 100%; }
+            .story-grid { grid-template-columns: 1fr; gap: 3rem; }
+            .location-grid { grid-template-columns: 1fr; }
+            .location-map { height: 300px; }
+        }
+        @media (max-width: 900px) {
+            nav { padding: 1rem 1.5rem; }
+            nav.scrolled { padding: 0.6rem 1.5rem; }
+            .hero-left { padding: 6.5rem 1.5rem 2.5rem; }
+            .features { padding: 4rem 1.5rem; }
+            .features-grid { grid-template-columns: 1fr; }
+            .gallery { padding: 4rem 1.5rem; }
+            .gallery-grid {
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: auto;
+            }
+            .g-item:nth-child(1) { grid-column: 1 / 3; }
+            .g-item:nth-child(2) { grid-column: auto; }
+            .g-item:nth-child(3) { grid-column: auto; }
+            .g-item:nth-child(4) { grid-column: auto; }
+            .g-item:nth-child(5) { grid-column: auto; }
+            .gallery-grid .g-placeholder { min-height: 180px; }
+            .details { padding: 4rem 1.5rem; }
+            .details-inner { grid-template-columns: 1fr; }
+            .location { padding: 4rem 1.5rem; }
+            .video-section { padding: 0 1.5rem 4rem; }
+            .contact { padding: 4rem 1.5rem; }
+            .contact-grid { grid-template-columns: 1fr; }
+            .trust-bar { padding: 1.5rem; gap: 2rem; }
+            .nav-links a:not(.nav-cta) { display: none; }
+        }
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 2.4rem; }
+            .hero-pills { gap: 0.5rem; }
+            .pill { padding: 0.5rem 0.9rem; font-size: 0.78rem; }
+            .hero-price .amount { font-size: 2.4rem; }
+            .story-stats { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAV -->
+    <nav id="navbar">
+        <a href="#" class="nav-brand">Horska | Partizanske</a>
+        <div class="nav-links">
+            <a href="#o-byte">O byte</a>
+            <a href="#vybavenie">Vybavenie</a>
+            <a href="#galeria">Fotky</a>
+            <a href="#detaily">Detaily</a>
+            <a href="#kontakt" class="nav-cta">Chcem obhliadku</a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-left">
+            <div class="hero-eyebrow">
+                <div class="dot"></div>
+                <span>Volny od 20. aprila</span>
+            </div>
+            <h1>Priestranny byt<br>na <em>Horskej</em></h1>
+            <p class="hero-subtitle">
+                3-izbovy byt na 1. poschodi s kompletnou rekonstrukciou.
+                Posledny najomnik tu zil 6 rokov - odovzdany v bezchybnom stave.
+            </p>
+            <div class="hero-pills">
+                <div class="pill"><span class="num">3</span> izby</div>
+                <div class="pill"><span class="num">82</span> m&#178;</div>
+                <div class="pill"><span class="num">1.</span> poschodie</div>
+                <div class="pill"><span class="num">4</span> osoby max</div>
+            </div>
+            <div class="hero-price">
+                <div><span class="amount">650 &#8364;</span><span class="per">/ mesiac</span></div>
+                <div class="note">vratane energii pre max 4 osoby</div>
+            </div>
+        </div>
+        <div class="hero-right">
+            <div class="hero-video-wrap">
+                <iframe
+                    src="https://www.youtube.com/embed/Cat3C7n_p4M?autoplay=1&mute=1&loop=1&playlist=Cat3C7n_p4M&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1"
+                    allow="autoplay; encrypted-media"
+                    allowfullscreen
+                    loading="lazy"
+                ></iframe>
+            </div>
+            <div class="hero-video-cover"></div>
+            <div class="video-badge">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                Video prehliadka bytu
+            </div>
+        </div>
+    </section>
+
+    <!-- TRUST BAR -->
+    <div class="trust-bar reveal">
+        <div class="trust-item">
+            <div class="trust-icon">&#9733;</div>
+            <div>
+                <strong>6 rokov spokojny najomnik</strong>
+                <span>Byt v perfektnom stave</span>
+            </div>
+        </div>
+        <div class="trust-item">
+            <div class="trust-icon">&#9878;</div>
+            <div>
+                <strong>Kompletna rekonstrukcia</strong>
+                <span>Moderne materialy a zariadenie</span>
+            </div>
+        </div>
+        <div class="trust-item">
+            <div class="trust-icon">&#8962;</div>
+            <div>
+                <strong>Nastahujte sa ihned</strong>
+                <span>Volny od 20. aprila 2026</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- STORY -->
+    <section class="story" id="o-byte">
+        <div class="story-grid">
+            <div class="story-text reveal">
+                <h2>Nie obycajny byt.<br><em>Pripraveny domov.</em></h2>
+                <p>
+                    Tento byt nie je len prenajom - je to miesto, kde sa predchadzajuci najomnik citil
+                    doma <strong>celych 6 rokov</strong>. Odisiel len kvoli zmene zivotnej situacie
+                    a byt odovzdal v stave, aky by ste od dlhorocneho byvania necakali.
+                </p>
+                <p>
+                    <strong>82,84 m&#178;</strong> na prvom poschodi, 3 izby, moderna kuchyna,
+                    priestranna kupelna a vlastna pivnica. Vsetko, co od byvania ocakavate -
+                    bez kompromisov a bez starostlivosti o opravy.
+                </p>
+                <p>
+                    Ulica Horska v Partizanskom - ticha lokalita s plnou obcianskou vybavenostou
+                    v dosahu pesiakov.
+                </p>
+            </div>
+            <div class="story-visual reveal reveal-d1">
+                <div class="story-card">
+                    <div class="big-number">6</div>
+                    <div class="big-label">rokov rovnaky najomnik</div>
+                    <div class="big-desc">
+                        Dlhodobe byvanie je najlepsi doklad kvality. Najomnik odovzdal byt
+                        v bezchybnom stave - pripraveny na dalsieho spokojeho obyvatela.
+                    </div>
+                    <div class="story-stats">
+                        <div class="story-stat-box">
+                            <strong>82,84 m&#178;</strong>
+                            <span>Celkova vymera</span>
+                        </div>
+                        <div class="story-stat-box">
+                            <strong>1. posch.</strong>
+                            <span>Pohodlny pristup</span>
+                        </div>
+                        <div class="story-stat-box">
+                            <strong>3 izby</strong>
+                            <span>+ kuchyna, kupelna</span>
+                        </div>
+                        <div class="story-stat-box">
+                            <strong>Pivnica</strong>
+                            <span>Vlastna v suterene</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="features" id="vybavenie">
+        <div class="features-inner">
+            <div class="section-label reveal">Vybavenie</div>
+            <div class="section-title reveal reveal-d1">Co v byte najdete</div>
+            <div class="section-desc reveal reveal-d2">Plne zariadeny byt pripraveny na byvanie od prveho dna</div>
+            <div class="features-grid">
+                <div class="f-card reveal">
+                    <div class="f-icon">
+                        <svg viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="2"/><line x1="6" y1="10" x2="6" y2="14"/><line x1="18" y1="10" x2="18" y2="14"/></svg>
+                    </div>
+                    <h3>Obyvacka</h3>
+                    <p>Priestranna obyvacia izba s dostatkom prirodneho svetla a miestom pre sedaciu supravu.</p>
+                </div>
+                <div class="f-card reveal reveal-d1">
+                    <div class="f-icon">
+                        <svg viewBox="0 0 24 24"><path d="M3 9h18v10a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path d="M3 9V7a2 2 0 012-2h14a2 2 0 012 2v2"/><line x1="12" y1="13" x2="12" y2="17"/></svg>
+                    </div>
+                    <h3>Moderna kuchyna</h3>
+                    <p>Kuchynska linka so vsetkymi spotrebicmi - chladnicka, sporiak, umyvacka riadu.</p>
+                </div>
+                <div class="f-card reveal reveal-d2">
+                    <div class="f-icon">
+                        <svg viewBox="0 0 24 24"><path d="M2 4v16"/><path d="M2 8h18a2 2 0 012 2v10"/><path d="M2 17h20"/><path d="M6 8v9"/></svg>
+                    </div>
+                    <h3>Spalnia</h3>
+                    <p>Hlavna spalnia s priestorom pre dvojlozko a satnikovu skrinu.</p>
+                </div>
+                <div class="f-card reveal">
+                    <div class="f-icon">
+                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41m11.32-11.32l1.41-1.41"/></svg>
+                    </div>
+                    <h3>Detska izba</h3>
+                    <p>Samostatna tretia izba vhodna ako detska, pracovna alebo hostovska.</p>
+                </div>
+                <div class="f-card reveal reveal-d1">
+                    <div class="f-icon">
+                        <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>
+                    </div>
+                    <h3>Kupelna + WC</h3>
+                    <p>Moderna kupelna so sprchovym kutom a oddelene WC pre vasi pohodlnost.</p>
+                </div>
+                <div class="f-card reveal reveal-d2">
+                    <div class="f-icon">
+                        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+                    </div>
+                    <h3>Komora + pivnica</h3>
+                    <p>Ulozne priestory priamo v byte aj v suterene domu pre vsetky vase veci.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section class="gallery" id="galeria">
+        <div class="section-label reveal">Fotogaleria</div>
+        <div class="section-title reveal reveal-d1">Pozrite si, kde budete byvat</div>
+        <div class="section-desc reveal reveal-d2">Fotografie bude doplnene v najblizsich dnoch</div>
+        <div class="gallery-grid reveal">
+            <div class="g-item">
+                <div class="g-placeholder g1">
+                    <div class="g-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+                    <span class="g-label">Obyvacka</span>
+                </div>
+            </div>
+            <div class="g-item">
+                <div class="g-placeholder g2">
+                    <div class="g-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+                    <span class="g-label">Kuchyna</span>
+                </div>
+            </div>
+            <div class="g-item">
+                <div class="g-placeholder g3">
+                    <div class="g-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+                    <span class="g-label">Spalnia</span>
+                </div>
+            </div>
+            <div class="g-item">
+                <div class="g-placeholder g4">
+                    <div class="g-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+                    <span class="g-label">Kupelna</span>
+                </div>
+            </div>
+            <div class="g-item">
+                <div class="g-placeholder g5">
+                    <div class="g-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+                    <span class="g-label">Detska izba</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VIDEO SECTION (standalone) -->
+    <section class="video-section reveal">
+        <div class="section-label" style="margin-bottom: 0.75rem;">Video prehliadka</div>
+        <div class="section-title" style="margin-bottom: 0.5rem;">Prejdite si byt z pohodlia domova</div>
+        <div class="section-desc" style="margin-bottom: 2rem;">Kompletna video prehliadka vsetkych izieb a priestorov</div>
+        <div class="video-container">
+            <iframe
+                src="https://www.youtube.com/embed/Cat3C7n_p4M?rel=0&modestbranding=1"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+                loading="lazy"
+            ></iframe>
+        </div>
+    </section>
+
+    <!-- DETAILS -->
+    <section class="details" id="detaily">
+        <div class="details-inner">
+            <div class="detail-card reveal">
+                <h3>
+                    <div class="h-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+                    Parametre bytu
+                </h3>
+                <ul class="d-list">
+                    <li><span class="d-label">Dispozicia</span><span class="d-value">3-izbovy (predsien, obyvacka, spalnia, detska izba, kuchyna)</span></li>
+                    <li><span class="d-label">Celkova vymera</span><span class="d-value">82,84 m&#178;</span></li>
+                    <li><span class="d-label">Poschodie</span><span class="d-value">1. poschodie</span></li>
+                    <li><span class="d-label">Stav</span><span class="d-value green">Po rekonstrukcii</span></li>
+                    <li><span class="d-label">Prislusenstvo</span><span class="d-value">Komora, WC, kupelna, pivnica</span></li>
+                    <li><span class="d-label">Adresa</span><span class="d-value">Horska ul., Partizanske</span></li>
+                </ul>
+            </div>
+            <div class="detail-card reveal reveal-d1">
+                <h3>
+                    <div class="h-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
+                    Podmienky prenajmu
+                </h3>
+                <ul class="d-list">
+                    <li><span class="d-label">Najomne</span><span class="d-value" style="font-size: 1.05rem;">650 &#8364; / mesiac</span></li>
+                    <li><span class="d-label">Energie</span><span class="d-value">V cene najomneho</span></li>
+                    <li><span class="d-label">Max. pocet osob</span><span class="d-value">4 osoby</span></li>
+                    <li><span class="d-label">Kaucia</span><span class="d-value">650 &#8364; (1 mesiac)</span></li>
+                    <li><span class="d-label">Dostupnost</span><span class="d-value green">Od 20. aprila 2026</span></li>
+                    <li><span class="d-label">Min. doba najmu</span><span class="d-value">12 mesiacov</span></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- LOCATION -->
+    <section class="location" id="lokalita">
+        <div class="location-grid">
+            <div class="location-map reveal">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2627.5!2d18.3783!3d48.6283!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4714a5c5c5c5c5c5%3A0x0!2sHorsk%C3%A1%2C%20Partiz%C3%A1nske!5e0!3m2!1ssk!2ssk!4v1"
+                    allowfullscreen
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                ></iframe>
+            </div>
+            <div class="location-info reveal reveal-d1">
+                <div class="section-label">Lokalita</div>
+                <h3>Horska ulica, Partizanske</h3>
+                <p>
+                    Ticha rezidenčna oblast s vybornou dostupnostou do centra mesta.
+                    Vsetko podstatne v dosahu pesiakov - obchody, skoly, lekar, MHD.
+                </p>
+                <ul class="poi-list">
+                    <li><div class="poi-dot"></div>Centrum mesta <span>5 min pesky</span></li>
+                    <li><div class="poi-dot"></div>Zakladna skola <span>3 min pesky</span></li>
+                    <li><div class="poi-dot"></div>Obchody a sluzby <span>5 min pesky</span></li>
+                    <li><div class="poi-dot"></div>Autobusova stanica <span>8 min pesky</span></li>
+                    <li><div class="poi-dot"></div>Parkovanie <span>Pred domom</span></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="contact" id="kontakt">
+        <div class="contact-inner">
+            <div class="section-label reveal">Kontakt</div>
+            <div class="section-title reveal reveal-d1">Mate zaujem o obhliadku?</div>
+            <div class="section-desc reveal reveal-d2">Ozvite sa telefonicky alebo emailom - dohodneme termin obhliadky</div>
+            <div class="contact-grid reveal">
+                <a href="tel:+421XXXXXXXXX" class="c-method">
+                    <div class="c-icon">
+                        <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+                    </div>
+                    <div class="c-label">Telefon</div>
+                    <div class="c-value">+421 XXX XXX XXX</div>
+                </a>
+                <a href="mailto:prenajom@email.sk" class="c-method">
+                    <div class="c-icon">
+                        <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    </div>
+                    <div class="c-label">Email</div>
+                    <div class="c-value">prenajom@email.sk</div>
+                </a>
+            </div>
+            <p class="contact-note reveal">
+                Obhliadky su mozne aj pocas vikendu po dohode.
+                Na spravu odpisem do 24 hodin.
+            </p>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        &#169; 2026 &#183; Byt na prenajom &#183; Horska, Partizanske
+    </footer>
+
+    <!-- LIGHTBOX -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" onclick="closeLightbox()">&#10005;</button>
+        <img src="" alt="" id="lightbox-img">
+    </div>
+
+    <script>
+        // Navbar scroll
+        const nav = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            nav.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Scroll reveal
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(link => {
+            link.addEventListener('click', e => {
+                e.preventDefault();
+                const target = document.querySelector(link.getAttribute('href'));
+                if (target) {
+                    const offset = 80;
+                    const top = target.getBoundingClientRect().top + window.scrollY - offset;
+                    window.scrollTo({ top, behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Lightbox for gallery images
+        function openLightbox(src) {
+            const lb = document.getElementById('lightbox');
+            const img = document.getElementById('lightbox-img');
+            img.src = src;
+            lb.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        document.getElementById('lightbox').addEventListener('click', (e) => {
+            if (e.target === e.currentTarget) closeLightbox();
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeLightbox();
+        });
+
+        // Enable gallery click when images are added
+        document.querySelectorAll('.g-item img').forEach(img => {
+            img.style.cursor = 'pointer';
+            img.addEventListener('click', () => openLightbox(img.src));
+        });
+    </script>
+
+</body>
+</html>
