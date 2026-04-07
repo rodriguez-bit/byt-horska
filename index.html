@@ -863,6 +863,114 @@
             margin: 0 auto;
         }
 
+        /* === CONTACT FORM === */
+        .contact-form-wrap {
+            margin-top: 2.5rem;
+            padding-top: 2.5rem;
+            border-top: 1px solid rgba(255,255,255,0.08);
+        }
+        .contact-form-wrap h3 {
+            font-family: var(--serif);
+            font-size: 1.4rem;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+        .contact-form-wrap .form-desc {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.45);
+            margin-bottom: 1.5rem;
+        }
+        .contact-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            text-align: left;
+        }
+        .contact-form .full-width {
+            grid-column: 1 / -1;
+        }
+        .contact-form label {
+            display: block;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: rgba(255,255,255,0.45);
+            font-weight: 500;
+            margin-bottom: 0.4rem;
+        }
+        .contact-form input,
+        .contact-form textarea,
+        .contact-form select {
+            width: 100%;
+            padding: 0.85rem 1rem;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            color: white;
+            font-family: var(--sans);
+            font-size: 0.92rem;
+            transition: border-color 0.25s, background 0.25s;
+            outline: none;
+        }
+        .contact-form input:focus,
+        .contact-form textarea:focus,
+        .contact-form select:focus {
+            border-color: var(--copper);
+            background: rgba(255,255,255,0.1);
+        }
+        .contact-form input::placeholder,
+        .contact-form textarea::placeholder {
+            color: rgba(255,255,255,0.25);
+        }
+        .contact-form textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        .contact-form select {
+            appearance: none;
+            cursor: pointer;
+        }
+        .contact-form select option {
+            background: var(--bg-dark);
+            color: white;
+        }
+        .form-submit {
+            grid-column: 1 / -1;
+            display: flex;
+            justify-content: center;
+            margin-top: 0.5rem;
+        }
+        .form-submit button {
+            background: linear-gradient(135deg, var(--accent), var(--copper));
+            color: white;
+            border: none;
+            padding: 1rem 3rem;
+            border-radius: 100px;
+            font-family: var(--sans);
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.25s, box-shadow 0.25s;
+            letter-spacing: 0.02em;
+        }
+        .form-submit button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(180,83,9,0.35);
+        }
+        .form-success {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+            color: #16a34a;
+            font-weight: 500;
+        }
+        .form-success.show {
+            display: block;
+        }
+        @media (max-width: 600px) {
+            .contact-form { grid-template-columns: 1fr; }
+        }
+
         /* === FOOTER === */
         footer {
             background: var(--bg-dark);
@@ -1289,6 +1397,49 @@
                 Obhliadky su mozne aj pocas vikendu po dohode.
                 Na spravu odpisem do 24 hodin.
             </p>
+
+            <!-- CONTACT FORM -->
+            <div class="contact-form-wrap reveal">
+                <h3>Napisat spravu</h3>
+                <p class="form-desc">Vyplnte formular a ozvem sa vam do 24 hodin</p>
+
+                <form class="contact-form" id="contactForm" action="https://formsubmit.co/rodriguez@dajanarodriguez.com" method="POST">
+                    <!-- FormSubmit config -->
+                    <input type="hidden" name="_subject" value="Novy zaujem o byt - Horska, Partizanske">
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_template" value="table">
+                    <input type="hidden" name="_next" value="https://rodriguez-bit.github.io/byt-horska/?sent=1">
+                    <input type="text" name="_honey" style="display:none">
+
+                    <div>
+                        <label for="fname">Meno</label>
+                        <input type="text" id="fname" name="meno" placeholder="Vase meno" required>
+                    </div>
+                    <div>
+                        <label for="fphone">Telefon</label>
+                        <input type="tel" id="fphone" name="telefon" placeholder="+421 ..." required>
+                    </div>
+                    <div class="full-width">
+                        <label for="femail">Email</label>
+                        <input type="email" id="femail" name="email" placeholder="vas@email.sk">
+                    </div>
+                    <div class="full-width">
+                        <label for="fdate">Preferovany termin obhliadky</label>
+                        <input type="text" id="fdate" name="termin" placeholder="napr. piatok poobede, vikend...">
+                    </div>
+                    <div class="full-width">
+                        <label for="fmsg">Sprava</label>
+                        <textarea id="fmsg" name="sprava" placeholder="Mam zaujem o obhliadku bytu..." rows="3"></textarea>
+                    </div>
+                    <div class="form-submit">
+                        <button type="submit">Odoslat spravu</button>
+                    </div>
+                </form>
+
+                <div class="form-success" id="formSuccess">
+                    &#10003; Sprava bola odoslana! Ozvem sa vam do 24 hodin.
+                </div>
+            </div>
         </div>
     </section>
 
@@ -1353,6 +1504,19 @@
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') closeLightbox();
         });
+
+        // Form success detection
+        if (window.location.search.includes('sent=1')) {
+            const form = document.getElementById('contactForm');
+            const success = document.getElementById('formSuccess');
+            if (form) form.style.display = 'none';
+            if (success) success.classList.add('show');
+            // scroll to contact
+            setTimeout(() => {
+                const el = document.getElementById('kontakt');
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+            }, 500);
+        }
 
         // Enable gallery click when images are added
         document.querySelectorAll('.g-item img').forEach(img => {
