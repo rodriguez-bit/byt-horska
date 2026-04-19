@@ -505,6 +505,13 @@
             margin-bottom: 1.25rem;
         }
         .f-icon svg { width: 22px; height: 22px; stroke: var(--accent); fill: none; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+        .f-card-photo { padding: 0; overflow: hidden; display: flex; flex-direction: column; }
+        .f-card-photo .f-photo { width: 100%; aspect-ratio: 4/3; overflow: hidden; cursor: pointer; }
+        .f-card-photo .f-photo img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+        .f-card-photo:hover .f-photo img { transform: scale(1.05); }
+        .f-card-photo .f-icon { margin: 1.5rem 2rem 0; }
+        .f-card-photo h3 { margin: 0.75rem 2rem 0.4rem; }
+        .f-card-photo p { margin: 0 2rem 2rem; }
         .f-card h3 {
             font-family: var(--serif);
             font-size: 1.2rem;
@@ -1271,7 +1278,10 @@
                     <h3>Televizia</h3>
                     <p>TV pripojka pripravena s programovou ponukou - pozeratie bez ciastky navyse, hned po nastahovani.</p>
                 </div>
-                <div class="f-card reveal reveal-d2">
+                <div class="f-card reveal reveal-d2 f-card-photo">
+                    <div class="f-photo" onclick="openLightbox('img/uschovna.jpg')">
+                        <img src="img/uschovna.jpg" alt="Uschovna ~3 m2 - spojovaci priestor medzi bytovkami" loading="lazy" onerror="this.parentElement.style.display='none'">
+                    </div>
                     <div class="f-icon">
                         <svg viewBox="0 0 24 24"><path d="M5.5 12h13"/><circle cx="6" cy="17" r="3"/><circle cx="18" cy="17" r="3"/><path d="M9 17h6"/><path d="M3 7h4l2 3"/></svg>
                     </div>
