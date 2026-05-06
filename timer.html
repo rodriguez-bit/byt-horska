@@ -2,8 +2,15 @@
 <html lang="sk">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Metrix Timer — 10s príprava + 1 min</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+<title>Metrix Timer — 15s príprava + 1 min</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Metrix">
+<meta name="theme-color" content="#0A0A0A">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='40' fill='%230A0A0A'/%3E%3Ctext x='90' y='118' font-family='monospace' font-size='80' font-weight='800' fill='%2300E676' text-anchor='middle'%3E1:00%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230A0A0A'/%3E%3Ctext x='16' y='22' font-family='monospace' font-size='14' font-weight='800' fill='%2300E676' text-anchor='middle'%3E1:00%3C/text%3E%3C/svg%3E">
 <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -34,8 +41,11 @@
         align-items: center;
         justify-content: center;
         min-height: 100vh;
-        padding: 24px;
+        min-height: 100dvh;
+        padding: max(24px, env(safe-area-inset-top)) max(24px, env(safe-area-inset-right)) max(24px, env(safe-area-inset-bottom)) max(24px, env(safe-area-inset-left));
         transition: background 0.4s ease;
+        overscroll-behavior: none;
+        touch-action: manipulation;
     }
 
     body.state-prep { background: #1A1100; }
@@ -243,6 +253,23 @@
     let rafId = null;
     let lastWholeSecond = -1;
 
+    let wakeLock = null;
+    async function requestWakeLock() {
+        try {
+            if ('wakeLock' in navigator) {
+                wakeLock = await navigator.wakeLock.request('screen');
+            }
+        } catch (e) {}
+    }
+    function releaseWakeLock() {
+        try { if (wakeLock) { wakeLock.release(); wakeLock = null; } } catch (e) {}
+    }
+    document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible' && (state === 'prep' || state === 'work')) {
+            requestWakeLock();
+        }
+    });
+
     let audioCtx = null;
     function beep(freq = 880, duration = 0.12, volume = 0.25) {
         try {
@@ -325,6 +352,7 @@
         startBtn.disabled = true;
         resetBtn.disabled = false;
         beep(440, 0.15, 0.25);
+        requestWakeLock();
         rafId = requestAnimationFrame(tick);
     }
 
@@ -349,6 +377,7 @@
         progressBar.style.width = '100%';
         beep(1760, 0.25, 0.35);
         setTimeout(() => beep(1760, 0.5, 0.35), 200);
+        releaseWakeLock();
         startBtn.disabled = false;
         startBtn.textContent = 'Znovu';
     }
@@ -356,6 +385,7 @@
     function reset() {
         if (rafId) cancelAnimationFrame(rafId);
         rafId = null;
+        releaseWakeLock();
         state = 'idle';
         setBodyState('idle');
         labelEl.textContent = 'Pripravený?';
