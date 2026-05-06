@@ -163,6 +163,36 @@
         color: var(--text);
     }
 
+    .fs-btn {
+        position: fixed;
+        top: 18px;
+        right: 18px;
+        width: 48px;
+        height: 48px;
+        min-width: 0;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 2px solid rgba(255,255,255,0.2);
+        background: rgba(255,255,255,0.04);
+        color: var(--text);
+        border-radius: 50%;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        z-index: 10;
+    }
+
+    .fs-btn:hover {
+        background: rgba(255,255,255,0.12);
+        border-color: var(--text);
+        transform: scale(1.05);
+    }
+
+    body.is-fullscreen .phase-info,
+    body.is-fullscreen .fs-btn svg.icon-enter { display: none; }
+    body:not(.is-fullscreen) .fs-btn svg.icon-exit { display: none; }
+
     @media (max-height: 500px) {
         .label { margin-bottom: 8px; }
         .progress { margin-top: 16px; }
@@ -172,7 +202,16 @@
 </style>
 </head>
 <body class="state-idle">
-    <div class="phase-info">Príprava <span>10s</span> &nbsp;→&nbsp; Práca <span>1:00</span></div>
+    <div class="phase-info">Príprava <span>15s</span> &nbsp;→&nbsp; Práca <span>1:00</span></div>
+
+    <button class="fs-btn" id="fsBtn" title="Celá obrazovka (F)" aria-label="Celá obrazovka">
+        <svg class="icon-enter" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/>
+        </svg>
+        <svg class="icon-exit" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/>
+        </svg>
+    </button>
 
     <div class="label" id="label">Pripravený?</div>
     <div class="timer" id="timer">01:00</div>
@@ -188,7 +227,7 @@
 
 <script>
 (() => {
-    const PREP_SECONDS = 10;
+    const PREP_SECONDS = 15;
     const WORK_SECONDS = 60;
 
     const body = document.body;
@@ -337,12 +376,37 @@
 
     resetBtn.addEventListener('click', reset);
 
+    const fsBtn = document.getElementById('fsBtn');
+
+    function isFullscreen() {
+        return !!(document.fullscreenElement || document.webkitFullscreenElement);
+    }
+
+    function toggleFullscreen() {
+        if (isFullscreen()) {
+            (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+        } else {
+            const el = document.documentElement;
+            (el.requestFullscreen || el.webkitRequestFullscreen).call(el);
+        }
+    }
+
+    function syncFullscreenClass() {
+        body.classList.toggle('is-fullscreen', isFullscreen());
+    }
+
+    fsBtn.addEventListener('click', toggleFullscreen);
+    document.addEventListener('fullscreenchange', syncFullscreenClass);
+    document.addEventListener('webkitfullscreenchange', syncFullscreenClass);
+
     document.addEventListener('keydown', (e) => {
         if (e.code === 'Space') {
             e.preventDefault();
             if (state === 'idle' || state === 'done') startBtn.click();
         } else if (e.code === 'KeyR') {
             reset();
+        } else if (e.code === 'KeyF') {
+            toggleFullscreen();
         }
     });
 })();
