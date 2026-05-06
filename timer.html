@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Metrix Timer — 10s príprava + 1 min</title>
+<style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+        --bg: #0A0A0A;
+        --panel: #111111;
+        --text: #FFFFFF;
+        --muted: #5A5A5A;
+        --prep: #FFB300;
+        --work: #00E676;
+        --done: #2979FF;
+        --danger: #FF1744;
+    }
+
+    html, body {
+        height: 100%;
+        background: var(--bg);
+        color: var(--text);
+        font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        overflow: hidden;
+        user-select: none;
+        -webkit-user-select: none;
+    }
+
+    body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        padding: 24px;
+        transition: background 0.4s ease;
+    }
+
+    body.state-prep { background: #1A1100; }
+    body.state-work { background: #001A0A; }
+    body.state-done { background: #00071A; }
+
+    .label {
+        font-size: clamp(18px, 4vw, 32px);
+        font-weight: 700;
+        letter-spacing: 0.4em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: clamp(12px, 2vh, 28px);
+        transition: color 0.3s ease;
+        text-align: center;
+    }
+
+    body.state-prep .label { color: var(--prep); }
+    body.state-work .label { color: var(--work); }
+    body.state-done .label { color: var(--done); }
+
+    .timer {
+        font-family: 'JetBrains Mono', 'SF Mono', 'Courier New', monospace;
+        font-size: clamp(120px, 32vw, 360px);
+        font-weight: 800;
+        line-height: 1;
+        letter-spacing: -0.04em;
+        font-variant-numeric: tabular-nums;
+        color: var(--text);
+        text-shadow: 0 0 60px rgba(255,255,255,0.05);
+        transition: color 0.3s ease, transform 0.15s ease;
+    }
+
+    body.state-prep .timer { color: var(--prep); text-shadow: 0 0 80px rgba(255,179,0,0.25); }
+    body.state-work .timer { color: var(--work); text-shadow: 0 0 80px rgba(0,230,118,0.25); }
+    body.state-done .timer { color: var(--done); text-shadow: 0 0 80px rgba(41,121,255,0.3); }
+
+    .timer.pulse { animation: pulse 0.4s ease; }
+    .timer.danger { color: var(--danger) !important; text-shadow: 0 0 80px rgba(255,23,68,0.4) !important; }
+
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        40% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+
+    .progress {
+        width: min(560px, 90vw);
+        height: 6px;
+        background: rgba(255,255,255,0.08);
+        border-radius: 3px;
+        overflow: hidden;
+        margin-top: clamp(20px, 4vh, 40px);
+    }
+
+    .progress-bar {
+        height: 100%;
+        width: 0%;
+        background: var(--muted);
+        transition: width 0.1s linear, background 0.3s ease;
+    }
+
+    body.state-prep .progress-bar { background: var(--prep); }
+    body.state-work .progress-bar { background: var(--work); }
+    body.state-done .progress-bar { background: var(--done); width: 100% !important; }
+
+    .controls {
+        margin-top: clamp(28px, 5vh, 56px);
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    button {
+        font-family: inherit;
+        font-size: 16px;
+        font-weight: 700;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        padding: 18px 44px;
+        border: 2px solid var(--text);
+        background: transparent;
+        color: var(--text);
+        cursor: pointer;
+        border-radius: 6px;
+        transition: all 0.2s ease;
+        min-width: 160px;
+    }
+
+    button:hover:not(:disabled) {
+        background: var(--text);
+        color: var(--bg);
+    }
+
+    button.primary {
+        background: var(--text);
+        color: var(--bg);
+    }
+
+    button.primary:hover:not(:disabled) {
+        background: transparent;
+        color: var(--text);
+    }
+
+    button:disabled {
+        opacity: 0.3;
+        cursor: not-allowed;
+    }
+
+    .phase-info {
+        position: fixed;
+        top: 24px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--muted);
+        text-align: center;
+    }
+
+    .phase-info span {
+        color: var(--text);
+    }
+
+    @media (max-height: 500px) {
+        .label { margin-bottom: 8px; }
+        .progress { margin-top: 16px; }
+        .controls { margin-top: 20px; }
+        button { padding: 12px 28px; font-size: 14px; }
+    }
+</style>
+</head>
+<body class="state-idle">
+    <div class="phase-info">Príprava <span>10s</span> &nbsp;→&nbsp; Práca <span>1:00</span></div>
+
+    <div class="label" id="label">Pripravený?</div>
+    <div class="timer" id="timer">01:00</div>
+
+    <div class="progress">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="controls">
+        <button class="primary" id="startBtn">Štart</button>
+        <button id="resetBtn" disabled>Reset</button>
+    </div>
+
+<script>
+(() => {
+    const PREP_SECONDS = 10;
+    const WORK_SECONDS = 60;
+
+    const body = document.body;
+    const labelEl = document.getElementById('label');
+    const timerEl = document.getElementById('timer');
+    const progressBar = document.getElementById('progressBar');
+    const startBtn = document.getElementById('startBtn');
+    const resetBtn = document.getElementById('resetBtn');
+
+    let state = 'idle';
+    let endsAt = 0;
+    let totalMs = 0;
+    let rafId = null;
+    let lastWholeSecond = -1;
+
+    let audioCtx = null;
+    function beep(freq = 880, duration = 0.12, volume = 0.25) {
+        try {
+            if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = 'sine';
+            osc.frequency.value = freq;
+            gain.gain.setValueAtTime(volume, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start();
+            osc.stop(audioCtx.currentTime + duration);
+        } catch (e) {}
+    }
+
+    function format(seconds) {
+        seconds = Math.max(0, Math.ceil(seconds));
+        const m = Math.floor(seconds / 60);
+        const s = seconds % 60;
+        return String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+    }
+
+    function setBodyState(s) {
+        body.classList.remove('state-idle', 'state-prep', 'state-work', 'state-done');
+        body.classList.add('state-' + s);
+    }
+
+    function pulse() {
+        timerEl.classList.remove('pulse');
+        void timerEl.offsetWidth;
+        timerEl.classList.add('pulse');
+    }
+
+    function tick() {
+        const now = performance.now();
+        const remainingMs = endsAt - now;
+        const remainingSec = remainingMs / 1000;
+
+        timerEl.classList.toggle('danger', state === 'work' && remainingSec <= 5 && remainingSec > 0);
+
+        timerEl.textContent = format(remainingSec);
+
+        const elapsed = totalMs - remainingMs;
+        const pct = Math.min(100, Math.max(0, (elapsed / totalMs) * 100));
+        progressBar.style.width = pct + '%';
+
+        const wholeSec = Math.ceil(remainingSec);
+        if (wholeSec !== lastWholeSecond && wholeSec >= 0) {
+            lastWholeSecond = wholeSec;
+            if (state === 'prep' && wholeSec <= 3 && wholeSec > 0) {
+                beep(660, 0.1, 0.2);
+                pulse();
+            } else if (state === 'work' && wholeSec <= 3 && wholeSec > 0) {
+                beep(880, 0.12, 0.25);
+                pulse();
+            }
+        }
+
+        if (remainingMs <= 0) {
+            if (state === 'prep') {
+                startWork();
+            } else if (state === 'work') {
+                finish();
+            }
+            return;
+        }
+
+        rafId = requestAnimationFrame(tick);
+    }
+
+    function startPrep() {
+        state = 'prep';
+        setBodyState('prep');
+        labelEl.textContent = 'Príprava';
+        totalMs = PREP_SECONDS * 1000;
+        endsAt = performance.now() + totalMs;
+        lastWholeSecond = -1;
+        startBtn.disabled = true;
+        resetBtn.disabled = false;
+        beep(440, 0.15, 0.25);
+        rafId = requestAnimationFrame(tick);
+    }
+
+    function startWork() {
+        state = 'work';
+        setBodyState('work');
+        labelEl.textContent = 'Štart!';
+        totalMs = WORK_SECONDS * 1000;
+        endsAt = performance.now() + totalMs;
+        lastWholeSecond = -1;
+        beep(1320, 0.35, 0.35);
+        pulse();
+        rafId = requestAnimationFrame(tick);
+    }
+
+    function finish() {
+        state = 'done';
+        setBodyState('done');
+        labelEl.textContent = 'Hotovo';
+        timerEl.textContent = '00:00';
+        timerEl.classList.remove('danger');
+        progressBar.style.width = '100%';
+        beep(1760, 0.25, 0.35);
+        setTimeout(() => beep(1760, 0.5, 0.35), 200);
+        startBtn.disabled = false;
+        startBtn.textContent = 'Znovu';
+    }
+
+    function reset() {
+        if (rafId) cancelAnimationFrame(rafId);
+        rafId = null;
+        state = 'idle';
+        setBodyState('idle');
+        labelEl.textContent = 'Pripravený?';
+        timerEl.textContent = '01:00';
+        timerEl.classList.remove('danger');
+        progressBar.style.width = '0%';
+        startBtn.disabled = false;
+        startBtn.textContent = 'Štart';
+        resetBtn.disabled = true;
+    }
+
+    startBtn.addEventListener('click', () => {
+        if (state === 'idle' || state === 'done') {
+            reset();
+            startPrep();
+        }
+    });
+
+    resetBtn.addEventListener('click', reset);
+
+    document.addEventListener('keydown', (e) => {
+        if (e.code === 'Space') {
+            e.preventDefault();
+            if (state === 'idle' || state === 'done') startBtn.click();
+        } else if (e.code === 'KeyR') {
+            reset();
+        }
+    });
+})();
+</script>
+</body>
+</html>
