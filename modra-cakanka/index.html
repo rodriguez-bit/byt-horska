@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modrá čakanka | Biznis poradenstvo</title>
+    <meta name="description" content="Modrá čakanka – biznis poradenstvo pre firmy a podnikateľov. Strategické, procesné a finančné poradenstvo, koučing a mentoring.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            /* Modrá čakanka – modrá & krémovo-béžová paleta */
+            --blue:        #3E6FB0;   /* modrá čakanka */
+            --blue-deep:   #2C4E80;   /* tmavšia modrá */
+            --blue-soft:   #6E97C9;   /* svetlá modrá */
+            --blue-tint:   #E7EEF7;   /* jemný modrý nádych */
+            --cream:       #F6F0E6;   /* krémová podkladová */
+            --cream-warm:  #EFE6D6;   /* teplejšia béžová */
+            --sand:        #E3D5BE;   /* béžový akcent */
+            --ink:         #23303F;   /* text */
+            --ink-soft:    #5C6B7A;   /* jemný text */
+            --white:       #FFFFFF;
+            --serif: 'Cormorant Garamond', Georgia, serif;
+            --sans:  'Jost', system-ui, -apple-system, sans-serif;
+            --radius: 16px;
+            --shadow-sm: 0 2px 10px rgba(35,48,63,0.06);
+            --shadow-md: 0 14px 40px rgba(35,48,63,0.10);
+            --maxw: 1120px;
+        }
+
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--sans);
+            background: var(--cream);
+            color: var(--ink);
+            line-height: 1.7;
+            font-weight: 300;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+        img { max-width: 100%; display: block; }
+        a { color: inherit; text-decoration: none; }
+
+        h1, h2, h3 { font-family: var(--serif); font-weight: 600; line-height: 1.15; }
+
+        .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 28px; }
+
+        .btn {
+            display: inline-block;
+            font-family: var(--sans);
+            font-weight: 500;
+            font-size: 0.95rem;
+            letter-spacing: 0.03em;
+            padding: 15px 34px;
+            border-radius: 100px;
+            transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
+        }
+        .btn-primary { background: var(--blue); color: var(--white); box-shadow: 0 10px 26px rgba(62,111,176,0.32); }
+        .btn-primary:hover { background: var(--blue-deep); transform: translateY(-2px); box-shadow: 0 14px 32px rgba(44,78,128,0.38); }
+        .btn-ghost { border: 1.5px solid var(--blue); color: var(--blue-deep); }
+        .btn-ghost:hover { background: var(--blue); color: var(--white); transform: translateY(-2px); }
+
+        /* === HEADER === */
+        header {
+            position: sticky; top: 0; z-index: 100;
+            background: rgba(246,240,230,0.88);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(227,213,190,0.7);
+        }
+        .nav { display: flex; align-items: center; justify-content: space-between; height: 78px; }
+        .brand { display: flex; align-items: center; gap: 12px; }
+        .brand svg { width: 40px; height: 40px; flex-shrink: 0; }
+        .brand .name { display: flex; flex-direction: column; line-height: 1; }
+        .brand .name b { font-family: var(--serif); font-weight: 600; font-size: 1.35rem; color: var(--blue-deep); letter-spacing: 0.02em; }
+        .brand .name span { font-size: 0.66rem; letter-spacing: 0.32em; text-transform: uppercase; color: var(--ink-soft); margin-top: 4px; }
+        .nav-links { display: flex; align-items: center; gap: 34px; }
+        .nav-links a { font-size: 0.9rem; font-weight: 400; letter-spacing: 0.02em; color: var(--ink-soft); transition: color .2s; }
+        .nav-links a:hover { color: var(--blue-deep); }
+        .nav-links .btn { color: var(--white); }
+        .menu-toggle { display: none; background: none; border: 0; cursor: pointer; padding: 6px; }
+        .menu-toggle span { display: block; width: 24px; height: 2px; background: var(--ink); margin: 5px 0; border-radius: 2px; transition: .3s; }
+
+        /* === HERO === */
+        .hero { position: relative; padding: 96px 0 104px; overflow: hidden; }
+        .hero::before {
+            content: ''; position: absolute; inset: 0; z-index: 0;
+            background:
+                radial-gradient(circle at 82% 18%, rgba(110,151,201,0.20), transparent 42%),
+                radial-gradient(circle at 12% 88%, rgba(227,213,190,0.55), transparent 48%);
+        }
+        .hero .wrap { position: relative; z-index: 1; max-width: 860px; text-align: center; }
+        .eyebrow {
+            display: inline-flex; align-items: center; gap: 10px;
+            font-size: 0.72rem; letter-spacing: 0.3em; text-transform: uppercase;
+            color: var(--blue-deep); font-weight: 500; margin-bottom: 26px;
+        }
+        .eyebrow::before, .eyebrow::after { content: ''; width: 28px; height: 1px; background: var(--blue-soft); }
+        .hero h1 { font-size: clamp(2.6rem, 6vw, 4.4rem); color: var(--ink); margin-bottom: 24px; }
+        .hero h1 em { font-style: italic; color: var(--blue); }
+        .hero p { font-size: 1.15rem; color: var(--ink-soft); max-width: 620px; margin: 0 auto 40px; font-weight: 300; }
+        .hero-cta { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+        .hero-flower { width: 74px; height: 74px; margin: 0 auto 30px; }
+
+        /* === SECTION HELPERS === */
+        section { position: relative; }
+        .section-pad { padding: 92px 0; }
+        .section-head { text-align: center; max-width: 640px; margin: 0 auto 58px; }
+        .section-head .eyebrow { margin-bottom: 18px; }
+        .section-head h2 { font-size: clamp(2rem, 4vw, 2.9rem); color: var(--ink); margin-bottom: 16px; }
+        .section-head p { color: var(--ink-soft); font-weight: 300; }
+
+        /* === SERVICES === */
+        .services { background: var(--cream-warm); }
+        .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
+        .card {
+            background: var(--white); border-radius: var(--radius); padding: 40px 32px;
+            box-shadow: var(--shadow-sm); border: 1px solid rgba(227,213,190,0.55);
+            transition: transform .3s ease, box-shadow .3s ease;
+        }
+        .card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); }
+        .card .ic {
+            width: 56px; height: 56px; border-radius: 14px; margin-bottom: 22px;
+            background: var(--blue-tint); display: flex; align-items: center; justify-content: center;
+        }
+        .card .ic svg { width: 28px; height: 28px; stroke: var(--blue-deep); }
+        .card h3 { font-size: 1.5rem; color: var(--blue-deep); margin-bottom: 10px; }
+        .card p { color: var(--ink-soft); font-size: 0.97rem; font-weight: 300; }
+
+        /* === ABOUT / FOUNDER === */
+        .about .wrap { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 60px; align-items: center; }
+        .founder-photo {
+            position: relative; border-radius: var(--radius); overflow: hidden;
+            aspect-ratio: 4 / 5; box-shadow: var(--shadow-md);
+            background: linear-gradient(135deg, var(--blue-tint), var(--sand));
+            display: flex; align-items: center; justify-content: center;
+        }
+        .founder-photo img { width: 100%; height: 100%; object-fit: cover; }
+        .founder-photo .placeholder {
+            text-align: center; color: var(--blue-deep); padding: 30px;
+        }
+        .founder-photo .placeholder svg { width: 60px; height: 60px; opacity: .55; margin: 0 auto 14px; }
+        .founder-photo .placeholder small { font-size: 0.78rem; letter-spacing: 0.08em; opacity: .8; }
+        .about-text .eyebrow { margin-bottom: 18px; }
+        .about-text h2 { font-size: clamp(2rem, 4vw, 2.9rem); margin-bottom: 20px; color: var(--ink); }
+        .about-text p { color: var(--ink-soft); margin-bottom: 18px; font-weight: 300; }
+        .about-text .sig { font-family: var(--serif); font-style: italic; font-size: 1.5rem; color: var(--blue); margin-top: 8px; }
+        .about-text .sig small { display: block; font-family: var(--sans); font-style: normal; font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-soft); margin-top: 4px; }
+
+        /* === APPROACH / STEPS === */
+        .approach { background: var(--blue-deep); color: var(--cream); }
+        .approach .section-head h2, .approach .about-text h2 { color: var(--white); }
+        .approach .section-head p { color: rgba(246,240,230,0.75); }
+        .approach .eyebrow { color: var(--blue-soft); }
+        .approach .eyebrow::before, .approach .eyebrow::after { background: var(--blue-soft); }
+        .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .step { text-align: center; padding: 0 14px; }
+        .step .num {
+            font-family: var(--serif); font-size: 2.4rem; font-weight: 600; color: var(--blue-soft);
+            width: 72px; height: 72px; margin: 0 auto 20px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            border: 1.5px solid rgba(110,151,201,0.5);
+        }
+        .step h3 { font-size: 1.4rem; color: var(--white); margin-bottom: 8px; }
+        .step p { color: rgba(246,240,230,0.72); font-size: 0.95rem; font-weight: 300; }
+
+        /* === CONTACT === */
+        .contact .wrap { max-width: 720px; text-align: center; }
+        .contact-cards { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-top: 40px; }
+        .contact-card {
+            background: var(--white); border: 1px solid rgba(227,213,190,0.6); border-radius: var(--radius);
+            padding: 28px 34px; min-width: 240px; box-shadow: var(--shadow-sm);
+        }
+        .contact-card .ic svg { width: 26px; height: 26px; stroke: var(--blue); margin: 0 auto 12px; }
+        .contact-card small { display: block; font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 6px; }
+        .contact-card a, .contact-card span { font-size: 1.1rem; color: var(--blue-deep); font-weight: 400; }
+
+        /* === FOOTER === */
+        footer { background: var(--cream-warm); border-top: 1px solid rgba(227,213,190,0.7); padding: 46px 0; }
+        footer .wrap { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
+        footer .brand svg { width: 34px; height: 34px; }
+        footer .brand .name b { font-size: 1.15rem; }
+        footer .copy { font-size: 0.85rem; color: var(--ink-soft); }
+
+        /* === REVEAL ANIM === */
+        .reveal { opacity: 0; transform: translateY(26px); transition: opacity .7s ease, transform .7s ease; }
+        .reveal.in { opacity: 1; transform: none; }
+
+        /* === RESPONSIVE === */
+        @media (max-width: 900px) {
+            .grid, .steps { grid-template-columns: 1fr; }
+            .about .wrap { grid-template-columns: 1fr; gap: 36px; }
+            .founder-photo { max-width: 380px; margin: 0 auto; }
+        }
+        @media (max-width: 680px) {
+            .nav-links { display: none; }
+            .menu-toggle { display: block; }
+            .nav-links.open {
+                display: flex; flex-direction: column; position: absolute; top: 78px; left: 0; right: 0;
+                background: var(--cream); padding: 24px 28px; gap: 20px; border-bottom: 1px solid var(--sand);
+                box-shadow: var(--shadow-md);
+            }
+            .section-pad { padding: 68px 0; }
+            .hero { padding: 68px 0 76px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ==================== HEADER ==================== -->
+    <header>
+        <div class="wrap nav">
+            <a href="#top" class="brand" aria-label="Modrá čakanka">
+                <!-- SVG logo: modrá čakanka -->
+                <svg viewBox="0 0 100 100" aria-hidden="true">
+                    <g fill="#3E6FB0">
+                        <g id="petal-set"></g>
+                    </g>
+                    <circle cx="50" cy="50" r="6" fill="#2C4E80"/>
+                    <circle cx="50" cy="50" r="2.5" fill="#F6F0E6"/>
+                </svg>
+                <span class="name"><b>Modrá čakanka</b><span>Biznis poradenstvo</span></span>
+            </a>
+            <nav class="nav-links" id="navLinks">
+                <a href="#sluzby">Služby</a>
+                <a href="#pristup">Prístup</a>
+                <a href="#o-mne">O zakladateľke</a>
+                <a href="#kontakt" class="btn btn-primary">Kontakt</a>
+            </nav>
+            <button class="menu-toggle" id="menuToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+        </div>
+    </header>
+
+    <!-- ==================== HERO ==================== -->
+    <section class="hero" id="top">
+        <div class="wrap">
+            <svg class="hero-flower" viewBox="0 0 100 100" aria-hidden="true">
+                <g fill="#3E6FB0"><g id="petal-set-hero"></g></g>
+                <circle cx="50" cy="50" r="6" fill="#2C4E80"/>
+                <circle cx="50" cy="50" r="2.5" fill="#F6F0E6"/>
+            </svg>
+            <div class="eyebrow">Modrá čakanka</div>
+            <h1>Poradenstvo, ktoré vášmu podnikaniu dáva <em>jasný smer</em></h1>
+            <p>Pomáham firmám a podnikateľom rásť premyslene – od stratégie cez procesy až po zdravé financie. Praktické riešenia na mieru, bez zbytočných fráz.</p>
+            <div class="hero-cta">
+                <a href="#kontakt" class="btn btn-primary">Dohodnúť konzultáciu</a>
+                <a href="#sluzby" class="btn btn-ghost">Pozrieť služby</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== SERVICES ==================== -->
+    <section class="services section-pad" id="sluzby">
+        <div class="wrap">
+            <div class="section-head reveal">
+                <div class="eyebrow">Čo ponúkam</div>
+                <h2>Služby na mieru vášho podniku</h2>
+                <p>Vyberte oblasť, v ktorej potrebujete pohnúť dopredu – alebo ich spojme do komplexnej spolupráce.</p>
+            </div>
+            <div class="grid">
+                <div class="card reveal">
+                    <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg></div>
+                    <h3>Strategické poradenstvo</h3>
+                    <p>Nastavenie vízie, cieľov a jasnej cesty k rastu. Analýza trhu, konkurencie a príležitostí, ktoré posunú firmu vpred.</p>
+                </div>
+                <div class="card reveal">
+                    <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg></div>
+                    <h3>Procesy a optimalizácia</h3>
+                    <p>Zefektívnenie každodenného chodu firmy. Odstránenie zbytočností, nastavenie procesov a jasných zodpovedností v tíme.</p>
+                </div>
+                <div class="card reveal">
+                    <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+                    <h3>Finančné poradenstvo</h3>
+                    <p>Prehľad vo financiách, cenotvorba a plánovanie. Aby čísla dávali zmysel a podnikanie stálo na zdravých základoch.</p>
+                </div>
+                <div class="card reveal">
+                    <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+                    <h3>Koučing a mentoring</h3>
+                    <p>Osobné sprevádzanie majiteľov a manažérov. Podpora v rozhodovaní, vedení tímu a raste líderských zručností.</p>
+                </div>
+                <div class="card reveal">
+                    <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+                    <h3>Podnikateľský plán</h3>
+                    <p>Príprava zrozumiteľného plánu pre nový projekt, investora či banku – od nápadu po konkrétne kroky realizácie.</p>
+                </div>
+                <div class="card reveal">
+                    <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+                    <h3>Konzultácie na mieru</h3>
+                    <p>Jednorazová konzultácia k tomu, čo vás práve páli. Konkrétna otázka, konkrétna odpoveď a ďalší krok.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== APPROACH ==================== -->
+    <section class="approach section-pad" id="pristup">
+        <div class="wrap">
+            <div class="section-head reveal">
+                <div class="eyebrow">Ako spolupracujeme</div>
+                <h2>Jednoduchý a férový postup</h2>
+                <p>Bez zbytočnej byrokracie. Tri kroky k viditeľnému výsledku.</p>
+            </div>
+            <div class="steps">
+                <div class="step reveal"><div class="num">1</div><h3>Spoznanie</h3><p>Nezáväzné stretnutie, kde spolu prejdeme vašu situáciu, ciele a to, čo vás trápi.</p></div>
+                <div class="step reveal"><div class="num">2</div><h3>Riešenie</h3><p>Pripravím návrh na mieru – konkrétne kroky, priority a časový plán, ktorý dáva zmysel.</p></div>
+                <div class="step reveal"><div class="num">3</div><h3>Realizácia</h3><p>Sprevádzam vás pri zavádzaní zmien a som k dispozícii, kým sa výsledky neprejavia.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== ABOUT / FOUNDER ==================== -->
+    <section class="about section-pad" id="o-mne">
+        <div class="wrap">
+            <div class="founder-photo reveal">
+                <!-- Fotku zakladateľky vlož ako img/zakladatelka.jpg -->
+                <img src="img/zakladatelka.jpg" alt="Zakladateľka Modrej čakanky"
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div class="placeholder" style="display:none;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg>
+                    <small>Miesto pre fotku zakladateľky</small>
+                </div>
+            </div>
+            <div class="about-text reveal">
+                <div class="eyebrow">O zakladateľke</div>
+                <h2>Za značkou Modrá čakanka</h2>
+                <p>Modrá čakanka vznikla z presvedčenia, že aj menšie firmy si zaslúžia poradenstvo na úrovni – ľudské, praktické a bez prázdnych fráz. Rovnako ako táto nenápadná modrá kvetina, aj dobré rozhodnutia rastú tam, kde im dáme priestor.</p>
+                <p>Spájam skúsenosti z podnikania so zmyslom pre detail a ochotou počúvať. Nechodím s hotovými šablónami – riešenie hľadám vždy priamo pre váš príbeh a vaše ciele.</p>
+                <div class="sig">Modrá čakanka<small>Zakladateľka &amp; poradkyňa</small></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== CONTACT ==================== -->
+    <section class="contact section-pad" id="kontakt">
+        <div class="wrap">
+            <div class="section-head reveal" style="margin-bottom:0;">
+                <div class="eyebrow">Kontakt</div>
+                <h2>Poďme sa porozprávať</h2>
+                <p>Napíšte mi a dohodneme si nezáväznú úvodnú konzultáciu. Rada si vypočujem, kam smerujete.</p>
+            </div>
+            <div class="contact-cards reveal">
+                <div class="contact-card">
+                    <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 6L2 7"/></svg></div>
+                    <small>E-mail</small>
+                    <a href="mailto:rodriguez@dajanarodriguez.com">rodriguez@dajanarodriguez.com</a>
+                </div>
+                <div class="contact-card">
+                    <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.4-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></div>
+                    <small>Telefón</small>
+                    <span>+421 &middot; na vyžiadanie</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer>
+        <div class="wrap">
+            <a href="#top" class="brand">
+                <svg viewBox="0 0 100 100" aria-hidden="true">
+                    <g fill="#3E6FB0"><g id="petal-set-foot"></g></g>
+                    <circle cx="50" cy="50" r="6" fill="#2C4E80"/>
+                    <circle cx="50" cy="50" r="2.5" fill="#F6F0E6"/>
+                </svg>
+                <span class="name"><b>Modrá čakanka</b><span>Biznis poradenstvo</span></span>
+            </a>
+            <div class="copy">© <span id="year"></span> Modrá čakanka · Biznis poradenstvo</div>
+        </div>
+    </footer>
+
+    <script>
+        // --- Generovanie lupienkov kvetu (modrá čakanka) do všetkých SVG log ---
+        function buildFlower(id) {
+            var g = document.getElementById(id);
+            if (!g) return;
+            var petals = 14, ns = 'http://www.w3.org/2000/svg';
+            var petal = 'M50 50 C 47 30, 47 18, 50 8 C 53 18, 53 30, 50 50 Z';
+            for (var i = 0; i < petals; i++) {
+                var p = document.createElementNS(ns, 'path');
+                p.setAttribute('d', petal);
+                p.setAttribute('transform', 'rotate(' + (i * (360 / petals)) + ' 50 50)');
+                p.setAttribute('opacity', i % 2 ? 0.78 : 1);
+                g.appendChild(p);
+            }
+        }
+        ['petal-set', 'petal-set-hero', 'petal-set-foot'].forEach(buildFlower);
+
+        // --- Rok vo footeri ---
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // --- Mobilné menu ---
+        var mt = document.getElementById('menuToggle'), nl = document.getElementById('navLinks');
+        mt.addEventListener('click', function () { nl.classList.toggle('open'); });
+        nl.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', function () { nl.classList.remove('open'); }); });
+
+        // --- Odhaľovanie sekcií pri scrollovaní ---
+        var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+        }, { threshold: 0.14 });
+        document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+    </script>
+</body>
+</html>
